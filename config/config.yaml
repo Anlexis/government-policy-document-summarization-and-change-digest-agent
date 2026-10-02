@@ -1,0 +1,17 @@
+# Runtime parameters — loaded by the agent registry and passed as Graph(config=...).
+# Separate from config/agent.yaml, which is the static manifest.
+
+# Retry budget for the backbone's routing decision.
+max_retry: 3
+# Request timeout in seconds, honoured by framework service clients.
+timeout_s: 30
+
+# Digest tuning. Forwarded to the inner workflow by
+# PolicyDigestGraphNode._parent_config() and republished into inner state by
+# DomainWorkflowGraph._extra_initial_state(), where QueryParseNode reads it.
+digest:
+  # Ceiling on how many documents one digest covers. A caller may ask for
+  # fewer; a caller asking for more is clamped to this value.
+  max_documents_limit: 20
+  # Rendering used when the caller does not choose one: "markdown" or "email".
+  default_output_format: "markdown"
